@@ -10,12 +10,23 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	ballTexture.loadFromFile("gfx/Beach_Ball.png");
 	ball1.setTexture(&ballTexture);
 	ball1.setSize(sf::Vector2f(50, 50));
-	ball1.setPosition(50, 300);
+	ball1.setPosition(50, 400);
 	ball1.setVelocity(100, 0);
 	ball2.setTexture(&ballTexture);
 	ball2.setSize(sf::Vector2f(50, 50));
-	ball2.setPosition(700, 300);
+	ball2.setPosition(700, 400);
 	ball2.setVelocity(-100, 0);
+
+	square1.setSize(sf::Vector2f(50, 50)); 
+	square1.setCollisionBox(sf::FloatRect(0, 0, 50, 50)); 
+	square1.setPosition(0, 200); 
+	square1.setVelocity(150, 0); 
+	square1.setFillColor(sf::Color::Blue); 
+	square2.setPosition(750, 200); 
+	square2.setSize(sf::Vector2f(50, 50)); 
+	square2.setCollisionBox(sf::FloatRect(0, 0, 50, 50)); 
+	square2.setVelocity(-150, 0); 
+	square2.setFillColor(sf::Color::Green);
 
 }
 
@@ -44,6 +55,14 @@ void Level::update(float dt)
 		ball1.collisionResponse(NULL); 
 		ball2.collisionResponse(NULL); 
 	}
+
+	square1.update(dt); 
+	square2.update(dt); 
+	if (Collision::checkBoundingBox(&square1, &square2)) 
+	{ 
+		square1.collisionResponse(NULL); 
+		square2.collisionResponse(NULL); 
+	}
 }
 
 // Render level
@@ -52,6 +71,8 @@ void Level::render()
 	beginDraw();
 	window->draw(ball1);
 	window->draw(ball2);
+	window->draw(square1);
+	window->draw(square2);
 	endDraw();
 }
 

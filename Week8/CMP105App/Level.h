@@ -31,4 +31,7 @@ private:
 	Ball ball1;
 	Ball ball2;
 	sf::Texture ballTexture;
+
+	Ball square1;
+	Ball square2;
 };
